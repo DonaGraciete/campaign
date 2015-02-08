@@ -1,0 +1,17 @@
+<template name="campaignItem">
+    <div class="campaign">
+        <!--<div class="img" style='background-image: url("cocacola.jpg");'>
+        </div>-->
+        <div class="description">
+            <div class="title-text">Brand</div>
+            <div class="content-text"><u>{{brand}}</u></div>
+        </div>
+        <div class="description">
+            <div class="title-text">Prize</div>
+            <div class="content-text"><u>{{prize}}</u></div>
+        </div>
+        <form action="{{pathFor 'campaignVote'}}" method="POST">
+            <input type="submit" value="See and vote" class="see"/>
+        </form>  
+    </div>
+</template>

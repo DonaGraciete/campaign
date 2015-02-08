@@ -1,0 +1,20 @@
+<template name="campaignVote">
+	
+	{{#with campaign}}
+        <div class="description">
+            <div class="title-text">Brand</div>
+            <div class="content-text"><u>{{brand}}</u></div>
+        </div>
+        <div class="description">
+            <div class="title-text">Prize</div>
+            <div class="content-text"><u>{{prize}}</u></div>
+        </div>
+	{{/with}}
+
+	{{#if currentUser}}
+		<button id="vote">Vote</button>
+	{{else}}
+		<button disabled>Login to vote</button>
+	{{/if}}
+	
+</template>
