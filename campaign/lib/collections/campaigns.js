@@ -2,8 +2,23 @@ Campaigns = new Mongo.Collection("campaigns");
 
 Meteor.methods({
 	"addVote":function(campaignId,groupName,userId){
-		Campaigns.update({"_id":campaignId,"groups.name":groupName},
-						{"$inc":{"groups.$.votes":1},"$addToSet":{"groups.$.voters":userId}});
+		res = Meteor.users.findOne({"_id":userId,"cooldowns.campaignId":campaignId},
+									{"_id":0,"cooldowns.$":1});
+		if(res){
+			console.log("Can't vote yet!"); //completar isto
+		}
+		else{
+			Campaigns.update({"_id":campaignId,"groups.name":groupName},
+							{"$inc":{"groups.$.votes":1},"$addToSet":{"groups.$.voters":userId}});
+			Meteor.users.update({"_id":userId},
+								{"$push":
+									{"cooldowns":
+										{"campaignId":campaignId,
+										"lastVoteDate":new Date()
+										}
+									}
+								});
+		}
 
 		/*FAZER VOTAÇÂO SEM VOTERS PRIMEIRO
 		if(!Meteor.users.findOne({"_id":userId,"votes.campaignId":campaignId})){
@@ -31,5 +46,8 @@ Meteor.methods({
 		Campaigns.update({"_id":campaignId},
 						{"$set":updateQuery},
 						{multi:true});
+	},
+	"clearAllCooldowns":function(){
+		Meteor.users.update({},{"$set":{"cooldowns":[]}},{"multi":true});
 	}
 });
