@@ -11,10 +11,22 @@
         </div>
 	{{/with}}
 
-	{{#if currentUser}}
-		<button id="vote">Vote</button>
-	{{else}}
-		<button disabled>Login to vote</button>
-	{{/if}}
-	
+	<h3>Ranking</h3>
+	<ul>
+	{{#each campaign.groups}}
+		<li>
+		{{name}} - {{votes}}
+		{{#if currentUser}}
+			<form method="POST" class="voteForm">
+				<input type="hidden" name="campaignId" value="{{../campaign._id}}"/>
+				<input type="hidden" name="name" value="{{name}}"/>
+				<input type="submit" value="Vote"/>
+			</form>
+		{{else}}
+			Login to vote!
+		{{/if}}
+		</li>
+	{{/each}}
+	</ul>
+
 </template>

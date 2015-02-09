@@ -5,19 +5,10 @@
 });*/
 
 Template.campaignVote.events({
-	'click #vote': function(e){
+	'submit .voteForm': function(e){
 		e.preventDefault();
-
-		//COMO SE FAZ ISTO NUM SÓ PASSO?
-		if(!Campaigns.find({"_id":this.campaign._id,"votes.user_id":Meteor.userId()})){
-			Campaigns.update({"_id":this.campaign._id},
-							{"$push":{"votes":{"user_id":Meteor.userId(),"qty":1}}}
-							);
-		}
-		else{
-			Campaigns.update({"_id":this.campaign._id,"votes.user_id":Meteor.userId()},
-							{"$inc":{"votes.$.qty":1}}
-							);
-		}
+		groupName = $(e.target).find("[name=name]").val();
+		campaignId = $(e.target).find("[name=campaignId]").val();
+		Meteor.call("addVote",campaignId,groupName,Meteor.userId());
 	}
 });
