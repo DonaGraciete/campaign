@@ -16,6 +16,16 @@
 	{{/with}}
 
 	<h3>Ranking</h3>
+	{{#if currentUser}}
+		{{#if canVote}}
+			Can vote in {{timeLeft}}
+		{{else}}
+			You can now vote!
+		{{/if}}
+	{{else}}
+		Login to vote!
+	{{/if}}
+
 	<ul>
 	{{#each campaign.groups}}
 		<li>
@@ -24,10 +34,10 @@
 			<form method="POST" class="voteForm">
 				<input type="hidden" name="campaignId" value="{{../campaign._id}}"/>
 				<input type="hidden" name="name" value="{{name}}"/>
-				<input type="submit" value="Vote"/>
+				{{#unless ../canVote}}
+					<input type="submit" value="Vote"/>
+				{{/unless}}
 			</form>
-		{{else}}
-			Login to vote!
 		{{/if}}
 		</li>
 	{{/each}}

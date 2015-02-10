@@ -6,12 +6,7 @@ Meteor.publish("campaign",function(id){
 	return Campaigns.find({"_id":id});
 });
 
-Meteor.publish("campaignVotes",function(){
-	excludeFields = {
-		"createdAt":0,
-		"emails.verified":0,
-		"profile":0,
-		"services":0
-	}
-	return Meteor.users.find({},{"fields":excludeFields});
+Meteor.publish("userCampaignVotes",function(campaignId,userId){
+	return Meteor.users.find({"_id":userId,"cooldowns.campaignId":campaignId},
+								{"_id":0,"cooldowns.$":1});
 });

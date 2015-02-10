@@ -16,6 +16,22 @@ if (Campaigns.find().count() === 0) {
 	});
 }
 
+removeCooldown = function(campaignId,userId){
+	Meteor.users.update({"_id":userId},
+						{"$pull":{"cooldowns":{"campaignId":campaignId}}});
+	console.log("just removed cooldown:"+campaignId+" "+userId);
+}
+
+function setAllCooldownExpires(){
+	Meteor.users.find().forEach(function(user){
+		for(var i=0;i<user.cooldowns.length;++i){
+			now = new Date();
+			Meteor.setTimeout(function(){
+				removeCooldown(user.cooldowns[i].campaignId,user._id);
+				},VOTE_COOLDOWN-(now-user.cooldown[i].lastVoteDate));
+		}
+	});
+}
 
 function resetVotes(campaignId){
 	groups = Campaigns.findOne({"_id":campaignId}).groups

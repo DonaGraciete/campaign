@@ -3,8 +3,6 @@
 });*/
 
 Accounts.onCreateUser(function(options, user) {
-	console.log(options);
-	console.log(user);
-	user.votes = [];
+	user.cooldowns = [];
 	return user;
 });
