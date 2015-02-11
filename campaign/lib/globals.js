@@ -1,5 +1,7 @@
 
-VOTE_COOLDOWN = 10*1000 //in miliseconds
+//	ultra unsafe!
+
+VOTE_COOLDOWN = 60*1000 //in miliseconds
 
 Date.prototype.addDays = function(days)
 {

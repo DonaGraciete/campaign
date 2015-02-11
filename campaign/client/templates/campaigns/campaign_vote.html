@@ -18,7 +18,7 @@
 	<h3>Ranking</h3>
 	{{#if currentUser}}
 		{{#if canVote}}
-			Can vote in {{timeLeft}}
+			{{> timer}}
 		{{else}}
 			You can now vote!
 		{{/if}}

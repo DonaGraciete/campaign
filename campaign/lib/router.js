@@ -17,19 +17,6 @@ Router.route("/",{
 	}
 });
 
-interval = null;
-function timer(clock){
-	if(clock > 0){
-		clock--
-		Session.set("timeLeft",clock);
-	}
-	else{
-		Meteor.clearInterval(interval);
-		console.log("You can now vote!");
-		interval = null;
-		Session.set("timeLeft",null);
-	}
-}
 
 Router.route("/campaign/:_id",{
 	name:"campaignVote",
@@ -40,27 +27,27 @@ Router.route("/campaign/:_id",{
 			campaign = Campaigns.findOne({"_id":this.params._id});
 			campaign.groups.sort(function(a,b){return b.votes-a.votes;});
 
-			canVote = false;
+			canVote = null;
+			Session.set("timeLeft",null);
+			Session.set("timerSet",false);
 
 			if(Meteor.userId()){
 				res = Meteor.users.findOne({"_id":Meteor.userId(),"cooldowns.campaignId":this.params._id});
-				/*
+
 				if(res){
-					clock = parseInt((VOTE_COOLDOWN-(now-res.cooldowns[0].lastVoteDate))/1000)+1;
-					if(!interval){
+					timeLeft = parseInt((VOTE_COOLDOWN-(now-res.cooldowns[0].lastVoteDate))/1000);
+					Session.set("timeLeft",timeLeft);
+					/*if(!interval){
 						interval = Meteor.setInterval(function(){timer(clock);}, 1000);
-					}
-					canVote = true;
+						*/
 				}
-				else{
-					canVote = false;
-				}
-				*/
+			}
+			else{
+				res = null;
 			}
 
 			return {
 				campaign:campaign,
-				//timeLeft:Session.get("timeLeft")
 				canVote:res
 			}
 		}
