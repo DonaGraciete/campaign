@@ -1,46 +1,81 @@
 <template name="campaignVote">
-	
-	{{#with campaign}}
-        <div class="description">
-            <div class="title-text">Brand</div>
-            <div class="content-text"><u>{{brand}}</u></div>
-        </div>
-        <div class="description">
-            <div class="title-text">Prize</div>
-            <div class="content-text"><u>{{prize}}</u></div>
-        </div>
-        <div class="description">
-            <div class="title-text">Rules</div>
-            <div class="content-text"><u>{{rules}}</u></div>
-        </div>
-	{{/with}}
 
-	<h3>Ranking</h3>
-	{{#if currentUser}}
-		{{#if canVote}}
-			{{> timer}}
+	<div class="container-fluid vote-container">
+
+		<div class="pager back-button">
+			<li><a href="{{pathFor 'campaignsList'}}">
+				<span aria-hidden="true">&larr;</span>campaigns</a>
+			</li>
+		</div>
+
+		{{#with campaign}}
+	    <div class="brand-text">
+	    	{{brand}}
+	    </div>
+	    <div class="prize-text">The winning major wins {{prize}}</div>
+
+	    <div class="rules-text"><u><b>Rules:</b> {{rules}}</u></div>
+		{{/with}}
+
+		<hr>
+
+		<div class="login-container">
+			<div class="login">
+			{{> loginButtons}}
+			</div>
+		</div>
+		<div class="vote-status">
+		{{#if campaign.finished}}
+			This campaign has finished. Check the winners below!
 		{{else}}
-			You can now vote!
+			{{#if currentUser}}
+				{{#if canVote}}
+					{{> timer}}
+				{{else}}
+					You can now vote!
+				{{/if}}
+			{{else}}
+				Login to vote!
+			{{/if}}
 		{{/if}}
-	{{else}}
-		Login to vote!
-	{{/if}}
+		</div>
 
-	<ul>
-	{{#each campaign.groups}}
-		<li>
-		{{name}} - {{votes}}
-		{{#if currentUser}}
-			<form method="POST" class="voteForm">
-				<input type="hidden" name="campaignId" value="{{../campaign._id}}"/>
-				<input type="hidden" name="name" value="{{name}}"/>
-				{{#unless ../canVote}}
-					<input type="submit" value="Vote"/>
-				{{/unless}}
-			</form>
-		{{/if}}
-		</li>
-	{{/each}}
-	</ul>
+		<hr>
 
+		<div class="table-container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Ranking</th>
+					<th>Major</th>
+					<th>Votes</th>
+					<th> </th>
+				</tr>
+			</thead>
+			
+			<tbody>
+			{{#each campaign.groups}}
+			<tr>
+				<td><b>{{index}}</b></td>
+				<td>{{name}}</td>
+				<td>{{votes}}</td>
+				<td>
+					{{#if currentUser}}
+						<form method="POST" class="voteForm">
+							<input type="hidden" name="campaignId" value="{{../campaign._id}}"/>
+							<input type="hidden" name="name" value="{{name}}"/>
+							{{#unless ../canVote}}
+								<input type="submit" class="btn btn-success" value="Vote"/>
+							{{else}}
+								<input disabled type="submit" class="btn btn-default" value="Vote"/>
+							{{/unless}}
+						</form>
+					{{/if}}
+				</td>
+			</tr>
+			{{/each}}
+			</tbody>
+		</table>
+		</div>
+	</div>
 </template>

@@ -1,9 +1,17 @@
 <template name="campaignsList">
-    <div class="campaigns-container">
-        <div class="campaigns-sub-container">
+    <div class="container-fluid header-container">
+        <div class="viral"><b>Viral</b></div> 
+        <div>Get the best products from the best campaigns!</div>
+    </div>
+    <div class="container-fluid campaigns-container">
+        <div class="row campaigns-sub-container">
         {{#each campaigns}}
             {{> campaignItem}}
         {{/each}}
         </div>
+    </div>
+
+    <div class="container-fluid create-container">
+        <a href="">I have a brand and want to create a campaign!</a>
     </div>
 </template>

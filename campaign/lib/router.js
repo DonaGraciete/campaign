@@ -26,6 +26,10 @@ Router.route("/campaign/:_id",{
 
 			campaign = Campaigns.findOne({"_id":this.params._id});
 			campaign.groups.sort(function(a,b){return b.votes-a.votes;});
+			campaign.groups.map(function(doc, index, cursor) {
+			    var newDoc = _.extend(doc, {index: index+1});
+			    return newDoc;
+			});
 
 			canVote = null;
 			Session.set("timeLeft",null);

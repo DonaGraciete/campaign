@@ -1,0 +1,28 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    padding: 0px;
+    margin: 0px;
+    background-color: rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.header-container{
+	font-size: 40px;
+	margin-top: 25px;
+	margin-bottom: 20px;
+}
+
+.campaigns-container{
+
+}
+
+.campaigns-sub-container{
+	margin: 0 auto;
+	width: 70%;
+}
+
+.campaign{
+	display: inline-block;
+	margin:2%;
+	width: 28%;
+}

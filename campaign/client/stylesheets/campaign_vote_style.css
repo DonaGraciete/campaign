@@ -1,0 +1,84 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    padding: 0px;
+    margin: 0px;
+    background-color: rgba(0,0,0,0.05);
+}
+
+.vote-container{
+	background-color: #FFF;
+	box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+	width: 70%;
+	height: 100%;
+	padding: 0px;
+	text-align: center;
+	position: relative;
+}
+
+hr{
+	border: 0;
+	height: 1px;
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.25), rgba(0,0,0,0)); 
+	background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.25), rgba(0,0,0,0)); 
+	background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.25), rgba(0,0,0,0)); 
+	background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.25), rgba(0,0,0,0)); 
+}
+
+.back-button{
+	font-size: 20px;
+	margin: 0px;
+	margin-top: 20px;
+	margin-left: 20px;
+	position: absolute;
+}
+
+.brand-text{
+	font-size: 40px;
+	font-weight: 700;
+	margin-bottom: 5px;
+	margin-top: 20px;
+}
+
+.prize-text{
+	font-size: 30px;
+	margin-bottom: 5px;
+}
+
+.rules-text{
+	font-size: 25px;
+	margin-bottom: 5px;
+}
+
+.login-container{
+	width: 100%;
+	margin-bottom:10px;
+}
+
+.login{
+	font-size: 25px;
+	list-style-type: none;
+	margin: 0 auto;
+	display: inline-block;
+}
+
+.vote-status{
+	font-size: 25px;
+}
+
+.table-container{
+	width:60%;
+	margin: auto;
+	margin-bottom: 50px;
+}
+
+th {
+    text-align: center;
+    font-size: 20px;
+}
+
+tr {
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+

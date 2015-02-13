@@ -32,16 +32,3 @@ function setAllCooldownExpires(){
 		}
 	});
 }
-
-function resetVotes(campaignId){
-	groups = Campaigns.findOne({"_id":campaignId}).groups
-
-	updateQuery = {};
-	for(var i=0;i<groups.length;++i){
-		updateQuery["groups."+i+".votes"] = 0;
-		updateQuery["groups."+i+".voters"] = [];
-	}
-	Campaigns.update({"_id":campaignId},
-					{"$set":updateQuery},
-					{multi:true});
-}
