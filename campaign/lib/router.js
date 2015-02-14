@@ -37,7 +37,6 @@ Router.route("/campaign/:_id",{
 
 			if(Meteor.userId()){
 				res = Meteor.users.findOne({"_id":Meteor.userId(),"cooldowns.campaignId":this.params._id});
-
 				if(res){
 					timeLeft = parseInt((VOTE_COOLDOWN-(now-res.cooldowns[0].lastVoteDate))/1000);
 					Session.set("timeLeft",timeLeft);

@@ -1,3 +1,5 @@
+
+
 Meteor.methods({
 	"addVote":function(campaignId,groupName,userId){
 		//	make tests to prevent hacks!
@@ -43,6 +45,10 @@ Meteor.methods({
 		*/
 	},
 	"clearVotes":function(campaignId){
+		if(!Roles.userIsInRole(Meteor.user(),"admin")){
+			throw new Meteor.Error(403, "Not authorized");
+		}
+
 		groups = Campaigns.findOne({"_id":campaignId}).groups
 
 		updateQuery = {};
@@ -55,6 +61,10 @@ Meteor.methods({
 						{multi:true});
 	},
 	"clearAllCooldowns":function(){
+		if(!Roles.userIsInRole(Meteor.user(),"admin")){
+			throw new Meteor.Error(403, "Not authorized");
+		}
+		
 		Meteor.users.update({},{"$set":{"cooldowns":[]}},{"multi":true});
 	}
 });
