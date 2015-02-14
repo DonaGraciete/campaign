@@ -2,6 +2,7 @@ Router.configure({
 	layoutTemplate:"layout",
 	loadingTemplate:"loading",
 	notFoundTemplate: 'notFound',
+	notAuthorizedTemplate: "notAutorized"
 	/*waitOn: function(){
 		return Meteor.subscribe("campaigns");
 	}*/
@@ -38,7 +39,7 @@ Router.route("/campaign/:_id",{
 			if(Meteor.userId()){
 				res = Meteor.users.findOne({"_id":Meteor.userId(),"cooldowns.campaignId":this.params._id});
 				if(res){
-					timeLeft = parseInt((VOTE_COOLDOWN-(now-res.cooldowns[0].lastVoteDate))/1000);
+					timeLeft = parseInt((campaign.cooldown*1000-(now-res.cooldowns[0].lastVoteDate))/1000);
 					Session.set("timeLeft",timeLeft);
 					/*if(!interval){
 						interval = Meteor.setInterval(function(){timer(clock);}, 1000);
@@ -75,7 +76,6 @@ Router.route("/campaign/:_id",{
 		}
 	}
 });
-
 
 //Router.onBeforeAction('dataNotFound', {only: 'campaignVote'});
 

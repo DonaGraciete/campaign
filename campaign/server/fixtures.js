@@ -11,14 +11,14 @@ function setAllCooldownExpires(){
 			now = new Date();
 
 			//	if the server went down while the cooldown was active and now the cooldown has expired
-			if(VOTE_COOLDOWN-(now-user.cooldowns[i].lastVoteDate) < 0){
+			if(user.cooldowns[i].cooldown-(now-user.cooldowns[i].lastVoteDate) < 0){
 				removeCooldown(user.cooldowns[i].campaignId,user._id);
 			}
 			//	if the cooldown hasnt expired yet
 			else{
 				Meteor.setTimeout(function(){
 					removeCooldown(user.cooldowns[i].campaignId,user._id);
-					},VOTE_COOLDOWN-(now-user.cooldown[i].lastVoteDate));
+					},user.cooldowns[i].cooldown*1000-(now-user.cooldown[i].lastVoteDate));
 			}
 		}
 	});

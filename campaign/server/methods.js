@@ -1,11 +1,14 @@
 
 
 Meteor.methods({
-	"addVote":function(campaignId,groupName,userId){
+	"addVote":function(campaignId,cooldown,groupName,userId){
+		check(campaignId,String);
+		check(cooldown,Number);
+		check(groupName,String);
+		check(userId,String);
+
 		//	make tests to prevent hacks!
-		now = new Date();
-		res = Meteor.users.findOne({"_id":userId,"cooldowns.campaignId":campaignId},
-									{"_id":0,"cooldowns.$":1});
+		res = Meteor.users.findOne({"_id":userId,"cooldowns.campaignId":campaignId});
 
 		//	Se ainda tiver cooldowns
 		if(res){
@@ -13,19 +16,21 @@ Meteor.methods({
 		}
 		//	Se ja nao tiver cooldowns nesta campanha
 		else{
+			now = new Date();
 			Campaigns.update({"_id":campaignId,"groups.name":groupName},
 							{"$inc":{"groups.$.votes":1},"$addToSet":{"groups.$.voters":userId}});
 			Meteor.users.update({"_id":userId},
 								{"$push":
 									{"cooldowns":
 										{"campaignId":campaignId,
-										"lastVoteDate":now
+										"lastVoteDate":now,
+										"cooldown":cooldown
 										}
 									}
 								});
 			Meteor.setTimeout(function(){
 				removeCooldown(campaignId,userId);
-				},VOTE_COOLDOWN);
+				},cooldown*1000);
 			console.log("just set new cooldown:"+campaignId+" "+userId);
 		}
 
@@ -45,6 +50,8 @@ Meteor.methods({
 		*/
 	},
 	"clearVotes":function(campaignId){
+		check(campaignId,String);
+
 		if(!Roles.userIsInRole(Meteor.user(),"admin")){
 			throw new Meteor.Error(403, "Not authorized");
 		}
@@ -64,7 +71,7 @@ Meteor.methods({
 		if(!Roles.userIsInRole(Meteor.user(),"admin")){
 			throw new Meteor.Error(403, "Not authorized");
 		}
-		
+
 		Meteor.users.update({},{"$set":{"cooldowns":[]}},{"multi":true});
 	}
 });
