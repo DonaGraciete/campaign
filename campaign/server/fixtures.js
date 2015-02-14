@@ -5,6 +5,19 @@ removeCooldown = function(campaignId,userId){
 	console.log("just removed cooldown:"+campaignId+" "+userId);
 }
 
+removeAllCooldowns = function(campaignId){
+	Meteor.users.update({},
+						{"$pull":{"cooldowns":{"campaignId":campaignId}}},
+						{"multi":true});
+	console.log("just removed cooldowns of campaign:"+campaignId);
+}
+
+finishCampaign = function(campaignId){
+	Campaigns.update({"_id":campaignId},{"$set":{"finished":true}});
+	console.log("finished "+campaignId);
+	//	not necessary to use removeAllCooldowns because they will eventually all expire
+}
+
 function setAllCooldownExpires(){
 	Meteor.users.find().forEach(function(user){
 		for(var i=0;i<user.cooldowns.length;++i){
@@ -24,8 +37,22 @@ function setAllCooldownExpires(){
 	});
 }
 
+function setCampaignsFinish(){
+	Campaigns.find().forEach(function(campaign){
+		if(campaign.finished!=true){
+			now = new Date();
+			diff = campaign.finishesAt-now;
+			console.log(campaign._id+"  "+diff);
+			Meteor.setTimeout(function(){
+				finishCampaign(campaign._id);
+			},campaign.finishesAt-now);
+		}
+	});
+}
+
 Meteor.startup(function(){
 	setAllCooldownExpires();
+	setCampaignsFinish();
 });
 
 /*if (Campaigns.find().count() === 0) {

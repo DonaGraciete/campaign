@@ -77,6 +77,11 @@ Router.route("/campaign/:_id",{
 	}
 });
 
+Router.route("/admin",{
+	name:"admin"
+});
+
+
 //Router.onBeforeAction('dataNotFound', {only: 'campaignVote'});
 
 /*

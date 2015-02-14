@@ -1,11 +1,20 @@
-AdminConfig = {
+kAdminConfig = {
+    name: 'Your Panel Name',
+    collections: {
+    	Campaigns:{}
+    }
+}
+
+/*AdminConfig = {
 	nonAdminRedirectRoute: 'campaignsList',
 	name: "Campaign",
 	collections:{
 		Campaigns:{}
 	}
 }
+*/
 
+/*
 Schema = {}
 
 Schema.Campaigns = new SimpleSchema({
@@ -33,4 +42,5 @@ Schema.Campaigns = new SimpleSchema({
 	}
 });
 
-//Campaigns.attachSchema(Schema.Campaigns);
+Campaigns.attachSchema(Schema.Campaigns);
+*/

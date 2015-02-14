@@ -1,37 +1,43 @@
 
 
 Meteor.methods({
-	"addVote":function(campaignId,cooldown,groupName,userId){
+	"addVote":function(campaignId,cooldown,finished,groupName,userId){
 		check(campaignId,String);
 		check(cooldown,Number);
+		check(finished,Boolean);
 		check(groupName,String);
 		check(userId,String);
 
-		//	make tests to prevent hacks!
-		res = Meteor.users.findOne({"_id":userId,"cooldowns.campaignId":campaignId});
-
-		//	Se ainda tiver cooldowns
-		if(res){
-			console.log("Can't vote yet"); //COMPLETAR ISTO
+		if(finished){
+			console.log("Votes have closed.");
 		}
-		//	Se ja nao tiver cooldowns nesta campanha
 		else{
-			now = new Date();
-			Campaigns.update({"_id":campaignId,"groups.name":groupName},
-							{"$inc":{"groups.$.votes":1},"$addToSet":{"groups.$.voters":userId}});
-			Meteor.users.update({"_id":userId},
-								{"$push":
-									{"cooldowns":
-										{"campaignId":campaignId,
-										"lastVoteDate":now,
-										"cooldown":cooldown
+			//	make tests to prevent hacks!
+			res = Meteor.users.findOne({"_id":userId,"cooldowns.campaignId":campaignId});
+
+			//	Se ainda tiver cooldowns
+			if(res){
+				console.log("Can't vote yet"); //COMPLETAR ISTO
+			}
+			//	Se ja nao tiver cooldowns nesta campanha
+			else{
+				now = new Date();
+				Campaigns.update({"_id":campaignId,"groups.name":groupName},
+								{"$inc":{"groups.$.votes":1},"$addToSet":{"groups.$.voters":userId}});
+				Meteor.users.update({"_id":userId},
+									{"$push":
+										{"cooldowns":
+											{"campaignId":campaignId,
+											"lastVoteDate":now,
+											"cooldown":cooldown
+											}
 										}
-									}
-								});
-			Meteor.setTimeout(function(){
-				removeCooldown(campaignId,userId);
-				},cooldown*1000);
-			console.log("just set new cooldown:"+campaignId+" "+userId);
+									});
+				Meteor.setTimeout(function(){
+					removeCooldown(campaignId,userId);
+					},cooldown*1000);
+				console.log("just set new cooldown:"+campaignId+" "+userId);
+			}
 		}
 
 		/*FAZER VOTAÇÂO SEM VOTERS PRIMEIRO
@@ -73,5 +79,35 @@ Meteor.methods({
 		}
 
 		Meteor.users.update({},{"$set":{"cooldowns":[]}},{"multi":true});
+	},
+	"createCampaign":function(campaign_details){
+		if(!Roles.userIsInRole(Meteor.user(),"admin")){
+			throw new Meteor.Error(403, "Not authorized");
+		}
+
+		check(campaign_details,{
+				brand:String,
+				prize:String,
+				rules:String,
+				cooldown:Number,
+				groups_list:[String],
+				img:String,
+				finishesAt:Date
+			});
+
+		campaign_details.groups = _.map(campaign_details.groups_list,function(groupName){
+			return {name:groupName,voters:[],votes:0}
+		});
+
+		delete campaign_details.groups_list;
+		campaign_details.finished = false;
+
+		Campaigns.insert(campaign_details);
+
+		now = new Date();
+		Meteor.setTimeout(function(){
+				finishCampaign(campaign._id);
+			},campaign.finishesAt-now);
+
 	}
 });

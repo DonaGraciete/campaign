@@ -14,4 +14,7 @@ mizzao:bootstrap-3
 meteorhacks:aggregate
 alanning:roles
 aldeed:simple-schema
-yogiben:admin
+kaoskeya:admin
+aldeed:autoform
+aldeed:collection2
+tmeasday:publish-counts

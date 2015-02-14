@@ -5,12 +5,10 @@
 });*/
 
 Template.campaignVote.events({
-	'submit .voteForm': function(e){
+	'submit .voteForm': function(e,template){
 		e.preventDefault();
+		campaign = template.data.campaign;
 		groupName = $(e.target).find("[name=name]").val();
-		campaignId = $(e.target).find("[name=campaignId]").val();
-		cooldown = $(e.target).find("[name=cooldown]").val();
-		cooldown = parseInt(cooldown);
-		Meteor.call("addVote",campaignId,cooldown,groupName,Meteor.userId());
+		Meteor.call("addVote",campaign._id,campaign.cooldown,campaign.finished,groupName,Meteor.userId());
 	}
 });
