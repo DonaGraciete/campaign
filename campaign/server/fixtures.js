@@ -14,8 +14,21 @@ removeAllCooldowns = function(campaignId){
 
 finishCampaign = function(campaignId){
 	Campaigns.update({"_id":campaignId},{"$set":{"finished":true}});
-	console.log("finished "+campaignId);
+	console.log("Just finished campaign: "+campaignId);
 	//	not necessary to use removeAllCooldowns because they will eventually all expire
+}
+
+function setLongTimeout(callback, timeout_ms){
+	//if we have to wait more than max time, need to recursively call this function again
+	if(timeout_ms > 2147483647){    //now wait until the max wait time passes then call this function again with
+		//requested wait - max wait we just did, make sure and pass callback
+		Meteor.setTimeout(function(){
+			setLongTimeout(callback, (timeout_ms-2147483647));
+		},2147483647);
+	}
+	else{  //if we are asking to wait less than max, finally just do regular seTimeout and call callback
+	    Meteor.setTimeout(callback, timeout_ms);
+    }
 }
 
 function setAllCooldownExpires(){
@@ -37,22 +50,28 @@ function setAllCooldownExpires(){
 	});
 }
 
-function setCampaignsFinish(){
+setCampaignFinish = function(campaign){
+	if(campaign.finished!=true){
+		now = new Date();
+		diff = campaign.finishesAt-now;
+		
+		setLongTimeout(function(){
+			finishCampaign(campaign._id);
+		},diff);
+
+		console.log("Just set "+diff+" ms timout for "+campaign.brand+"'s campaign (id: "+campaign._id+").");
+	}
+}
+
+function setAllCampaignsFinish(){
 	Campaigns.find().forEach(function(campaign){
-		if(campaign.finished!=true){
-			now = new Date();
-			diff = campaign.finishesAt-now;
-			console.log(campaign._id+"  "+diff);
-			Meteor.setTimeout(function(){
-				finishCampaign(campaign._id);
-			},campaign.finishesAt-now);
-		}
+		setCampaignFinish(campaign);
 	});
 }
 
 Meteor.startup(function(){
 	setAllCooldownExpires();
-	setCampaignsFinish();
+	setAllCampaignsFinish();
 });
 
 /*if (Campaigns.find().count() === 0) {

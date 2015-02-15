@@ -52,7 +52,7 @@ Router.route("/campaign/:_id",{
 
 			return {
 				campaign:campaign,
-				canVote:res
+				cantVote:res
 			}
 		}
 		else{

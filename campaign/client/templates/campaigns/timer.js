@@ -1,14 +1,15 @@
 //VERY INSECURE
 
+
 function timer(clock){
 	if(clock > 0){
 		Session.set("timeLeft",clock-1);
 	}
 	else{
 		Meteor.clearInterval(interval);
-		delete interval;
 		console.log("You can now vote!");
 		Session.set("timeLeft",null);
+		Session.set("timerSet",false);
 	}
 }
 

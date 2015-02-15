@@ -102,12 +102,9 @@ Meteor.methods({
 		delete campaign_details.groups_list;
 		campaign_details.finished = false;
 
-		Campaigns.insert(campaign_details);
-
-		now = new Date();
-		Meteor.setTimeout(function(){
-				finishCampaign(campaign._id);
-			},campaign.finishesAt-now);
-
+		id = Campaigns.insert(campaign_details);
+		campaign_details._id = id;
+		setCampaignFinish(campaign_details);
 	}
+	// create "extendCampaign"
 });

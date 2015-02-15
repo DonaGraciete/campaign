@@ -29,7 +29,7 @@
 			This campaign has finished. Check the winners below!
 		{{else}}
 			{{#if currentUser}}
-				{{#if canVote}}
+				{{#if cantVote}}
 					{{> timer}}
 				{{else}}
 					You can now vote!
@@ -64,7 +64,7 @@
 					{{#if currentUser}}
 						<form method="POST" class="voteForm" name="voteForm">
 							<input type="hidden" name="name" value="{{name}}"/>
-							{{#unless ../canVote}}
+							{{#unless ../cantVote}}
 								<input type="submit" class="btn btn-success" value="Vote"/>
 							{{else}}
 								<input disabled type="submit" class="btn btn-default" value="Vote"/>
