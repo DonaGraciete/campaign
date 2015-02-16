@@ -1,6 +1,6 @@
 //VERY INSECURE
 
-
+/*
 function timer(clock){
 	if(clock > 0){
 		Session.set("timeLeft",clock-1);
@@ -24,3 +24,4 @@ Template.timer.helpers({
 		return Session.get("timeLeft");
 	}
 });
+*/

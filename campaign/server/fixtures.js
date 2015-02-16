@@ -33,20 +33,35 @@ function setLongTimeout(callback, timeout_ms){
 
 function setAllCooldownExpires(){
 	Meteor.users.find().forEach(function(user){
-		for(var i=0;i<user.cooldowns.length;++i){
+		user.cooldowns.forEach(function(cooldown){
 			now = new Date();
+			if(cooldown.cooldown*1000-(now-cooldown.lastVoteDate) < 0){
+				removeCooldown(cooldown.campaignId,user._id);
+			}
+			else{
+				Meteor.setTimeout(function(){
+					removeCooldown(cooldown.campaignId,user._id);
+					},cooldown.cooldown*1000-(now-cooldown.lastVoteDate));
+			}
+		});
+
+		/*for(var i=0;i<user.cooldowns.length;++i){
+			now = new Date();
+			console.log(i);
 
 			//	if the server went down while the cooldown was active and now the cooldown has expired
-			if(user.cooldowns[i].cooldown-(now-user.cooldowns[i].lastVoteDate) < 0){
+			if(user.cooldowns[i].cooldown*1000-(now-user.cooldowns[i].lastVoteDate) <= 0){
 				removeCooldown(user.cooldowns[i].campaignId,user._id);
 			}
 			//	if the cooldown hasnt expired yet
 			else{
 				Meteor.setTimeout(function(){
+					console.log(user);
+					console.log(i);
 					removeCooldown(user.cooldowns[i].campaignId,user._id);
-					},user.cooldowns[i].cooldown*1000-(now-user.cooldown[i].lastVoteDate));
+					},user.cooldowns[i].cooldown*1000-(now-user.cooldowns[i].lastVoteDate));
 			}
-		}
+		}*/
 	});
 }
 

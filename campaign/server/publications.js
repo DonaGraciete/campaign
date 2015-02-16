@@ -7,5 +7,6 @@ Meteor.publish("campaign",function(id){
 });
 
 Meteor.publish("userCampaignVotes",function(campaignId,userId){
-	return Meteor.users.find({_id:userId,"cooldowns.campaignId":campaignId});
+	return Meteor.users.find({_id:userId,"cooldowns.campaignId":campaignId},
+							{fields:{"cooldowns.$":1}});
 });

@@ -10,6 +10,7 @@ Meteor.methods({
 
 		if(finished){
 			console.log("Votes have closed.");
+			return false;
 		}
 		else{
 			//	make tests to prevent hacks!
@@ -18,6 +19,7 @@ Meteor.methods({
 			//	Se ainda tiver cooldowns
 			if(res){
 				console.log("Can't vote yet"); //COMPLETAR ISTO
+				return false;
 			}
 			//	Se ja nao tiver cooldowns nesta campanha
 			else{
@@ -37,6 +39,7 @@ Meteor.methods({
 					removeCooldown(campaignId,userId);
 					},cooldown*1000);
 				console.log("just set new cooldown:"+campaignId+" "+userId);
+				return true;
 			}
 		}
 
