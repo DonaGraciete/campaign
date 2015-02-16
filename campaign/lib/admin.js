@@ -1,20 +1,19 @@
-kAdminConfig = {
-    name: 'Your Panel Name',
-    collections: {
-    	Campaigns:{}
-    }
-}
 
-/*AdminConfig = {
+AdminConfig = {
 	nonAdminRedirectRoute: 'campaignsList',
 	name: "Campaign",
 	collections:{
-		Campaigns:{}
+		Campaigns:{
+			tableColumns: [
+              {label: 'Brand', name: 'brand'},
+              {label: 'ID', name: '_id'}
+            ]
+		}
 	}
 }
-*/
 
-/*
+
+
 Schema = {}
 
 Schema.Campaigns = new SimpleSchema({
@@ -30,17 +29,17 @@ Schema.Campaigns = new SimpleSchema({
 	groups: {
 	    type: [Object]
 	},
-	"groups.$.names": {
+	"groups.$.name": {
 	    type: String
 	},
 	"groups.$.votes": {
 	    type: Number
 	},
 	"groups.$.voters":{
-		type: [Object],
+		type: [String],
 		optional: true
 	}
 });
 
 Campaigns.attachSchema(Schema.Campaigns);
-*/
+
