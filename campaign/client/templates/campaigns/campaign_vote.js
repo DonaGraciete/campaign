@@ -1,6 +1,6 @@
 /*Template.campaignVote.helpers({
-	isLoggedIn: function(){
-		return Meteor.user();
+	scoreWidth: function(score){
+		return score*10;
 	}
 });*/
 

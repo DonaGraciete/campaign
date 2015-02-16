@@ -2,14 +2,18 @@ body{
     font-family: 'Roboto', sans-serif;
     padding: 0px;
     margin: 0px;
-    background-color: rgba(0,0,0,0.05);
+    background-color: #FFF;
     text-align: center;
 }
 
+.company{
+	font-size: 42px;
+}
+
 .header-container{
-	font-size: 40px;
+	font-size: 35px;
 	margin-top: 25px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .campaigns-container{
@@ -25,4 +29,16 @@ body{
 	display: inline-block;
 	margin:2%;
 	width: 28%;
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+	padding: 15px;
+}
+
+.description{
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.see{
+	font-size: 20px;
+	width: 80%;
 }
