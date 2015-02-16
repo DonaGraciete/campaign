@@ -48,7 +48,6 @@ Router.route("/campaign/:_id",{
 			res = null;
 			if(Meteor.userId()){
 				res = Meteor.users.findOne({"_id":Meteor.userId(),"cooldowns.campaignId":this.params._id});
-				console.log(res);
 				if(res){
 					if(Session.get("timeLeft")==undefined){
 							// FIX THE COOLDOWN INDEX, IT IS CAUSING ALWAYS THE SAME CAMPAIGN'S COOLDOWN TO BE SELECTED

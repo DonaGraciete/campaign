@@ -38,7 +38,20 @@ Schema.Campaigns = new SimpleSchema({
 	"groups.$.voters":{
 		type: [String],
 		optional: true
+	},
+	img:{
+		type:String
+	},
+	cooldown:{
+		type:Number
+	},
+	finished:{
+		type:Boolean
+	},
+	finishesAt:{
+		type:Date
 	}
+
 });
 
 Campaigns.attachSchema(Schema.Campaigns);

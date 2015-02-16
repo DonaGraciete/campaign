@@ -104,6 +104,7 @@ Meteor.methods({
 
 		delete campaign_details.groups_list;
 		campaign_details.finished = false;
+		console.log(campaign_details);
 
 		id = Campaigns.insert(campaign_details);
 		campaign_details._id = id;
