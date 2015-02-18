@@ -36,7 +36,7 @@
 						You can now vote!
 					{{/if}}
 				{{else}}
-					Please verifiy your email account to vote.
+					<b>Please verifiy your email account to vote.</b>
 				{{/if}}
 			{{else}}
 				Sign in or sign up to vote!
@@ -71,11 +71,15 @@
 					{{#if currentUser}}
 						<form method="POST" class="voteForm" name="voteForm">
 							<input type="hidden" name="name" value="{{name}}"/>
-							{{#unless ../cantVote}}
-								<input type="submit" class="btn btn-success" value="Vote"/>
+							{{#if verified currentUser.emails}}
+								{{#unless ../cantVote}}
+									<input type="submit" class="btn btn-success" value="Vote"/>
+								{{else}}
+									<input disabled type="submit" class="btn btn-default" value="Vote"/>
+								{{/unless}}
 							{{else}}
 								<input disabled type="submit" class="btn btn-default" value="Vote"/>
-							{{/unless}}
+							{{/if}}
 						</form>
 					{{/if}}
 					{{/unless}}

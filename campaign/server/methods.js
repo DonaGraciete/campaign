@@ -21,7 +21,7 @@ Meteor.methods({
 				console.log("Can't vote yet"); //COMPLETAR ISTO
 				return false;
 			}
-			else if(!res.emails[0].verified){
+			else if(!Meteor.user().emails[0].verified){
 				console.log("Your account is not verified");
 				return false;
 			}
