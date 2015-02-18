@@ -85,6 +85,7 @@ function setAllCampaignsFinish(){
 }
 
 Meteor.startup(function(){
+	process.env.MAIL_URL = 'smtp://postmaster@sandboxff7ed2cffc264af087e9442d1e5b02e8.mailgun.org:4a2b57bd961a624e78daeaccf69a3793@smtp.mailgun.org:587';
 	setAllCooldownExpires();
 	setAllCampaignsFinish();
 });

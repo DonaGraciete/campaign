@@ -30,6 +30,13 @@ function deleteTimeSession(){
 		Meteor.clearInterval(Session.get("interval"));
 		delete Session.keys["interval"];
 	}
+	if(Session.get("finishesIn")!=undefined){
+		delete Session.keys["finishesIn"];
+	}
+	if(Session.get("finishesInterval")!=undefined){
+		Meteor.clearInterval(Session.get("finishesInterval"));
+		delete Session.keys["finishesInterval"];
+	}
 }
 
 Router.route("/campaign/:_id",{
@@ -48,9 +55,9 @@ Router.route("/campaign/:_id",{
 			res = null;
 			if(Meteor.userId()){
 				res = Meteor.users.findOne({"_id":Meteor.userId(),"cooldowns.campaignId":this.params._id});
+				console.log(res);
 				if(res){
 					if(Session.get("timeLeft")==undefined){
-							// FIX THE COOLDOWN INDEX, IT IS CAUSING ALWAYS THE SAME CAMPAIGN'S COOLDOWN TO BE SELECTED
 						timeLeft = parseInt((res.cooldowns[0].cooldown*1000-(now-res.cooldowns[0].lastVoteDate))/1000);
 						console.log("timeleft "+timeLeft);
 
@@ -70,10 +77,24 @@ Router.route("/campaign/:_id",{
 				deleteTimeSession();
 			}
 
+			/*
+			if(Session.get("finishesIn")==undefined){
+				finishesIn = parseInt((new Date() - campaign.finishesAt)/1000);
+				console.log("finishesIn "+finishesIn);
+
+				Session.set("finishesIn",finishesIn);
+				Session.set("finishesInterval",
+					Meteor.setInterval(function(){
+						Session.set("finishesIn",Session.get("finishesIn")-1);
+					},1000)
+				);
+			}*/
+
 			return {
 				campaign:campaign,
 				timeLeft:Session.get("timeLeft"),
-				cantVote: res
+				cantVote: res,
+				finishesIn: Session.get("finishesIn")
 			}
 		}
 		else{

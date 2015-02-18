@@ -29,16 +29,23 @@
 			This campaign has finished. Check the winners below!
 		{{else}}
 			{{#if currentUser}}
-				{{#if cantVote}}
-					You can vote in {{timeLeft}} seconds.
+				{{#if verified currentUser.emails}}
+					{{#if cantVote}}
+						You can vote in {{timeLeft}} seconds.
+					{{else}}
+						You can now vote!
+					{{/if}}
 				{{else}}
-					You can now vote!
+					Please verifiy your email account to vote.
 				{{/if}}
 			{{else}}
-				Login to vote!
+				Sign in or sign up to vote!
 			{{/if}}
 		{{/if}}
 		</div>
+		<!--<div>
+			This campaign finishes in {{finishesIn}} seconds
+		</div>-->
 
 		<hr>
 
@@ -80,4 +87,5 @@
 		</div>
 
 	</div>
+
 </template>
