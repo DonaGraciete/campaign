@@ -75,4 +75,9 @@ tr {
 	vertical-align: middle;
 }
 
+.g-recaptcha{
+	margin: -10px auto;
+	display: inline-block;
+}
+
 
