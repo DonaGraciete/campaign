@@ -60,7 +60,7 @@ hr{
 }
 
 .table-container{
-	width:60%;
+	width:70%;
 	margin: auto;
 	margin-bottom: 50px;
 }
@@ -72,8 +72,20 @@ th {
 
 tr {
 	font-size: 18px;
-	vertical-align: middle;
 }
+
+.table tbody tr td, .table tbody tr th, .table thead tr th{
+	border: none;
+}
+
+.votes-div{
+	width: 60%;
+}
+
+.progress{
+	height: 26px;
+}
+
 
 .g-recaptcha{
 	margin: -10px auto;

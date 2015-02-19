@@ -25,7 +25,7 @@
 		</div>
 		<div class="vote-status">
 		{{#if campaign.finished}}
-			This campaign has finished. Check the winners below!
+			<b>This campaign has finished. Check the winners below!</b>
 		{{else}}
 			{{#if currentUser}}
 				{{#if verified currentUser.emails}}
@@ -51,14 +51,14 @@
 		<div class="captcha">
 			<div class="g-recaptcha" data-sitekey="6LfuSgITAAAAALdNZFnVMYLZIrPBqIXwtOMW4Kry"></div>
 		</div>
-		
+
 		<div class="table-container">
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Ranking</th>
-					<th>Major</th>
+					<th></th>
 					<th>Votes</th>
+					<!--<th>Votes</th>-->
 					<th> </th>
 				</tr>
 			</thead>
@@ -66,9 +66,38 @@
 			<tbody>
 			{{#each campaign.groups}}
 			<tr>
+				<!--
 				<td><b>{{index}}</b></td>
 				<td>{{name}}</td>
 				<td>{{votes}}</td>
+				<td>
+					{{#unless ../campaign.finished}}
+					{{#if currentUser}}
+						<form method="POST" class="voteForm" name="voteForm">
+							<input type="hidden" name="name" value="{{name}}"/>
+							{{#if verified currentUser.emails}}
+								{{#unless ../cantVote}}
+									<input type="submit" class="btn btn-success" value="Vote"/>
+								{{else}}
+									<input disabled type="submit" class="btn btn-default" value="Vote"/>
+								{{/unless}}
+							{{else}}
+								<input disabled type="submit" class="btn btn-default" value="Vote"/>
+							{{/if}}
+						</form>
+					{{/if}}
+					{{/unless}}
+				</td>
+				-->
+
+				<td>{{name}}</td>
+				<td class="votes-div">
+					<div class="progress">
+					  <div class="progress-bar" role="progressbar" aria-valuenow="{{votesPercentage votes ../campaign.groups}}" aria-valuemin="0" aria-valuemax="100" style="width: {{votesPercentage votes ../campaign.groups}}%;">
+					    {{votes}}
+					  </div>
+					</div>
+				</td>
 				<td>
 					{{#unless ../campaign.finished}}
 					{{#if currentUser}}

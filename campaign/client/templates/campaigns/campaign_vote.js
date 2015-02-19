@@ -28,6 +28,10 @@ Template.campaignVote.helpers({
 		else{
 			return false;
 		}
+	},
+	votesPercentage: function(votes,groups){
+		totalVotes = _.reduce(_.map(groups,function(group){return group.votes;}),function(m,n){return m+n;});
+		return (votes/totalVotes)*100;
 	}
 });
 

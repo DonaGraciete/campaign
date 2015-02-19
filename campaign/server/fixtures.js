@@ -44,24 +44,6 @@ function setAllCooldownExpires(){
 					},cooldown.cooldown*1000-(now-cooldown.lastVoteDate));
 			}
 		});
-
-		/*for(var i=0;i<user.cooldowns.length;++i){
-			now = new Date();
-			console.log(i);
-
-			//	if the server went down while the cooldown was active and now the cooldown has expired
-			if(user.cooldowns[i].cooldown*1000-(now-user.cooldowns[i].lastVoteDate) <= 0){
-				removeCooldown(user.cooldowns[i].campaignId,user._id);
-			}
-			//	if the cooldown hasnt expired yet
-			else{
-				Meteor.setTimeout(function(){
-					console.log(user);
-					console.log(i);
-					removeCooldown(user.cooldowns[i].campaignId,user._id);
-					},user.cooldowns[i].cooldown*1000-(now-user.cooldowns[i].lastVoteDate));
-			}
-		}*/
 	});
 }
 

@@ -6,7 +6,7 @@ Accounts.config({
 
 Accounts.onCreateUser(function(options, user) {
 	user.cooldowns = [];
-	Roles.setUserRoles(user,"user");
+	user.roles = ["user"];
 	return user;
 });
 
