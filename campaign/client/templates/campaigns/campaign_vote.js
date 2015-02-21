@@ -32,6 +32,20 @@ Template.campaignVote.helpers({
 	votesPercentage: function(votes,groups){
 		totalVotes = _.reduce(_.map(groups,function(group){return group.votes;}),function(m,n){return m+n;});
 		return (votes/totalVotes)*100;
+	},
+	formatTimeLeft: function(timeLeft){
+		if(timeLeft<60){
+			return timeLeft+" seconds";
+		}
+		else if(timeLeft>=60 && timeLeft<59*60+59){
+			minutes = parseInt(timeLeft/60)+1;
+			return minutes+" minutes";
+		}
+		else{
+			hours = parseInt(timeLeft/3600);
+			minutes = parseInt(timeLeft/60)%60;
+			return hours+":"+minutes+" hours";
+		}
 	}
 });
 

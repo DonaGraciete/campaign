@@ -108,6 +108,9 @@ Meteor.methods({
 
 		delete campaign_details.groups_list;
 		campaign_details.finished = false;
+		campaign_details.extraMessages = "";
+		campaign_details.frenzy = {message:"",started:false};
+		
 		console.log(campaign_details);
 
 		id = Campaigns.insert(campaign_details);

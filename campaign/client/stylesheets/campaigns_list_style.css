@@ -13,10 +13,11 @@ html{
 
 html::after {
   content: "";
-  background: url("http://cdn.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-7-full.jpg");
+  /*background: url("http://cdn.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-7-full.jpg");*/
+  background: url("images/stock.jpg");
   background-repeat: repeat-y;
   background-size: cover;
-  opacity: 0.95;
+  opacity: 0.5;
   top: 0;
   left: 0;
   bottom: 0;

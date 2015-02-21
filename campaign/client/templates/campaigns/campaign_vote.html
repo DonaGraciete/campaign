@@ -43,9 +43,9 @@
 			{{#if currentUser}}
 				{{#if verified currentUser.emails}}
 					{{#if cantVote}}
-						You can vote in {{timeLeft}} seconds.
-					<!--{{else}}
-						You can now vote!-->
+						You can vote again in {{formatTimeLeft timeLeft}}.
+					{{else}}
+						Vote now!
 					{{/if}}
 				{{else}}
 					<b>Please verifiy your email account to vote.</b>
