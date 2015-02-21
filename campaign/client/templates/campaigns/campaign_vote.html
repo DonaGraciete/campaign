@@ -1,6 +1,5 @@
 <template name="campaignVote">
 	<div class="container-fluid vote-container">
-
 		<div class="pager back-button">
 			<li><a href="{{pathFor 'campaignsList'}}">
 				<span aria-hidden="true">&larr;</span>campaigns</a>
@@ -8,21 +7,35 @@
 		</div>
 
 		{{#with campaign}}
-	    <div class="brand-text">
-	    	{{brand}}
-	    </div>
-	    <div class="prize-text">The winning major wins {{prize}}</div>
+		    <div class="brand-text">
+		    	{{brand}}
+		    </div>
+		    <div class="prize-text">{{prize}}</div>
 
-	    <div class="rules-text"><u><b>Rules:</b> {{rules}}</u></div>
+		    <div class="rules-text"><u><b>Rules:</b> {{rules}}</u></div>
+			
+			<div class="header-login-container">
+				<div class="header-login">
+				{{> loginButtons}}
+				</div>
+			</div>
+
+			<hr>
+
+			{{#if extraMessage}}
+				<div class="alert alert-warning" role="alert">{{extraMessage}}</div>
+			{{/if}}
+
+			{{#if frenzy.message}}
+				{{#if frenzy.started}}
+					<div class="alert alert-success frenzy" role="alert"><p><b>Vote frenzy has started!</b></p> {{frenzy.message}}</div>
+				{{else}}
+					<div class="alert alert-success frenzy" role="alert"><p><b>Vote frenzy reminder</b></p> {{frenzy.message}}</div>
+				{{/if}}
+			{{/if}}
+
 		{{/with}}
 
-		<hr>
-
-		<div class="login-container">
-			<div class="login">
-			{{> loginButtons}}
-			</div>
-		</div>
 		<div class="vote-status">
 		{{#if campaign.finished}}
 			<b>This campaign has finished. Check the winners below!</b>
@@ -31,8 +44,8 @@
 				{{#if verified currentUser.emails}}
 					{{#if cantVote}}
 						You can vote in {{timeLeft}} seconds.
-					{{else}}
-						You can now vote!
+					<!--{{else}}
+						You can now vote!-->
 					{{/if}}
 				{{else}}
 					<b>Please verifiy your email account to vote.</b>

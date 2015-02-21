@@ -1,24 +1,41 @@
-body{
+html, body{
     font-family: 'Roboto', sans-serif;
     padding: 0px;
     margin: 0px;
-    background-color: #FFF;
     text-align: center;
+    position: relative;
+}
+
+html{
+	height: 100%;
+}
+
+
+html::after {
+  content: "";
+  background: url("http://cdn.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-7-full.jpg");
+  background-repeat: repeat-y;
+  background-size: cover;
+  opacity: 0.95;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
 }
 
 .company{
-	font-size: 42px;
+	font-size: 46px;
+	font-family: "Lobster", cursive;
 }
 
 .header-container{
-	font-size: 35px;
+	font-size: 32px;
 	margin-top: 25px;
 	margin-bottom: 10px;
 }
 
-.campaigns-container{
-
-}
 
 .campaigns-sub-container{
 	margin: 0 auto;
@@ -30,6 +47,7 @@ body{
 	margin:2%;
 	width: 28%;
 	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+	background-color: #FFF;
 	padding: 15px;
 	border-radius: 7px;
 }
@@ -42,4 +60,17 @@ body{
 .see{
 	font-size: 20px;
 	width: 80%;
+}
+
+
+.login-container{
+	width: 100%;
+	margin-bottom:10px;
+}
+
+.login{
+	font-size: 25px;
+	list-style-type: none;
+	margin: 0 auto;
+	display: inline-block;
 }
