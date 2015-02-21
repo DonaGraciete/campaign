@@ -45,7 +45,11 @@
 					{{#if cantVote}}
 						You can vote again in {{formatTimeLeft timeLeft}}.
 					{{else}}
-						Vote now!
+						{{#if campaign.frenzy.started}}
+							Vote fast!
+						{{else}}
+							Vote now!
+						{{/if}}
 					{{/if}}
 				{{else}}
 					<b>Please verifiy your email account to vote.</b>

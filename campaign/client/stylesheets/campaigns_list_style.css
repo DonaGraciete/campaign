@@ -14,11 +14,11 @@ html{
 html::after {
   content: "";
   /*background: url("http://cdn.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-7-full.jpg");*/
-  background: url("images/stock.jpg");
+  background: url("images/tortoise-new.jpg");
   background-repeat: repeat-y;
   background-size: cover;
-  opacity: 0.5;
-  top: 0;
+  opacity: 0.7;
+  top: -100px;
   left: 0;
   bottom: 0;
   right: 0;

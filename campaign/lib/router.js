@@ -30,13 +30,13 @@ function deleteTimeSession(){
 		Meteor.clearInterval(Session.get("interval"));
 		delete Session.keys["interval"];
 	}
-	if(Session.get("finishesIn")!=undefined){
+	/*if(Session.get("finishesIn")!=undefined){
 		delete Session.keys["finishesIn"];
 	}
 	if(Session.get("finishesInterval")!=undefined){
 		Meteor.clearInterval(Session.get("finishesInterval"));
 		delete Session.keys["finishesInterval"];
-	}
+	}*/
 }
 
 Router.route("/campaign/:_id",{
@@ -92,8 +92,8 @@ Router.route("/campaign/:_id",{
 			return {
 				campaign:campaign,
 				timeLeft:Session.get("timeLeft"),
-				cantVote: res,
-				finishesIn: Session.get("finishesIn")
+				cantVote: res
+				//finishesIn: Session.get("finishesIn")
 			}
 		}
 		else{
@@ -120,12 +120,6 @@ Router.route("/campaign/:_id",{
 		}
 	}
 });
-
-/*
-Router.route("/admin",{
-	name:"admin"
-});
-*/
 
 //Router.onBeforeAction('dataNotFound', {only: 'campaignVote'});
 

@@ -12,8 +12,6 @@ AdminConfig = {
 	}
 }
 
-
-
 Schema = {}
 
 Schema.Campaigns = new SimpleSchema({
@@ -33,8 +31,8 @@ Schema.Campaigns = new SimpleSchema({
 	finishesAt:{type:Date},
 	frenzy:{type:Object},
 	"frenzy.started":{type:Boolean},
-	"frenzy.message":{type:String},
-	extraMessages:{type:String}
+	"frenzy.message":{type:String,optional: true},
+	extraMessage:{type:String,optional: true}
 });
 
 Campaigns.attachSchema(Schema.Campaigns);

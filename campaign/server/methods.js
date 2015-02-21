@@ -80,6 +80,15 @@ Meteor.methods({
 						{"$set":updateQuery},
 						{multi:true});
 	},
+	"clearCooldowns":function(campaignId){
+		check(campaignId,String);
+
+		if(!Roles.userIsInRole(Meteor.user(),"admin")){
+			throw new Meteor.Error(403, "Not authorized");
+		}
+
+		Meteor.users.update({"cooldowns.campaignId":campaignId},{"$pop":{"cooldowns":{"campaignId":campaignId}}},{"multi":true});
+	},
 	"clearAllCooldowns":function(){
 		if(!Roles.userIsInRole(Meteor.user(),"admin")){
 			throw new Meteor.Error(403, "Not authorized");
@@ -110,12 +119,28 @@ Meteor.methods({
 		campaign_details.finished = false;
 		campaign_details.extraMessages = "";
 		campaign_details.frenzy = {message:"",started:false};
-		
+
 		console.log(campaign_details);
 
 		id = Campaigns.insert(campaign_details);
 		campaign_details._id = id;
 		setCampaignFinish(campaign_details);
+	},
+	"startVoteFrenzy":function(campaignId){
+		if(!Roles.userIsInRole(Meteor.user(),"admin")){
+			throw new Meteor.Error(403, "Not authorized");
+		}
+
+		Campaigns.update({"_id":campaignId},{"$set":{"frenzy.started":true}});
+		Meteor.call("clearCooldowns",campaignId);
+	},
+	"finishVoteFrenzy":function(campaignId){
+		if(!Roles.userIsInRole(Meteor.user(),"admin")){
+			throw new Meteor.Error(403, "Not authorized");
+		}
+
+		Campaigns.update({"_id":campaignId},{"$set":{"frenzy.started":false,"frenzy.message":""}});
 	}
+
 	// create "extendCampaign"
 });
