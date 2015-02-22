@@ -35,16 +35,16 @@ Template.campaignVote.helpers({
 	},
 	formatTimeLeft: function(timeLeft){
 		if(timeLeft<60){
-			return timeLeft+" seconds";
+			return timeLeft+" segundos";
 		}
 		else if(timeLeft>=60 && timeLeft<59*60+59){
 			minutes = parseInt(timeLeft/60)+1;
-			return minutes+" minutes";
+			return minutes+" minutos";
 		}
 		else{
 			hours = parseInt(timeLeft/3600);
 			minutes = parseInt(timeLeft/60)%60;
-			return hours+":"+minutes+" hours";
+			return hours+":"+minutes+" horas";
 		}
 	}
 });
@@ -53,7 +53,7 @@ Template.campaignVote.events({
 	'submit .voteForm': function(e,template){
 		e.preventDefault();
 		if(!grecaptcha.getResponse()){
-			$(".captcha").prepend('<div id="vote-error" class="alert alert-danger" role="alert">Click below to prove you are not a bot!</div>');
+			$(".captcha").prepend('<div id="vote-error" class="alert alert-danger" role="alert">Clica abaixo para mostrar que não és um robô!</div>');
 			console.log("You must prove you are not a bot!");
 			return false;
 		}

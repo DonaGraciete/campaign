@@ -2,7 +2,7 @@
 	<div class="container-fluid vote-container">
 		<div class="pager back-button">
 			<li><a href="{{pathFor 'campaignsList'}}">
-				<span aria-hidden="true">&larr;</span>campaigns</a>
+				<span aria-hidden="true">&larr;</span>campanhas</a>
 			</li>
 		</div>
 
@@ -12,7 +12,7 @@
 		    </div>
 		    <div class="prize-text">{{prize}}</div>
 
-		    <div class="rules-text"><u><b>Rules:</b> {{rules}}</u></div>
+		    <div class="rules-text"><u><b>Regras:</b> {{rules}}</u></div>
 			
 			<div class="header-login-container">
 				<div class="header-login">
@@ -28,9 +28,9 @@
 
 			{{#if frenzy.message}}
 				{{#if frenzy.started}}
-					<div class="alert alert-success frenzy" role="alert"><p><b>Vote frenzy has started!</b></p> {{frenzy.message}}</div>
+					<div class="alert alert-success frenzy" role="alert"><p><b>Os votos rápidos começaram!</b></p> {{frenzy.message}}</div>
 				{{else}}
-					<div class="alert alert-success frenzy" role="alert"><p><b>Vote frenzy reminder</b></p> {{frenzy.message}}</div>
+					<div class="alert alert-success frenzy" role="alert"><p><b>Lembrete</b></p> {{frenzy.message}}</div>
 				{{/if}}
 			{{/if}}
 
@@ -38,20 +38,21 @@
 
 		<div class="vote-status">
 		{{#if campaign.finished}}
-			<b>This campaign has finished. Check the winners below!</b>
+			<b>Esta campanha acabou. Confere os vencedores abaixo!</b>
+			<!-- Esta linha tem de mudar caso não se saibam os vencedores à partida.-->
 		{{else}}
 			{{#if currentUser}}
 				{{#if verified currentUser.emails}}
 					{{#if cantVote}}
-						You can vote again in {{formatTimeLeft timeLeft}}.
+						Podes votar novamente dentro de {{formatTimeLeft timeLeft}}.
 					{{else}}
-						Vote now!
+						Vota agora pelo teu curso!
 					{{/if}}
 				{{else}}
-					<b>Please verifiy your email account to vote.</b>
+					<b>Por favor verifica o teu email para votares.</b>
 				{{/if}}
 			{{else}}
-				Sign in or sign up to vote!
+				<b>Faz sign in ou sign up para votar!</b>
 			{{/if}}
 		{{/if}}
 		</div>
@@ -70,7 +71,7 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>Votes</th>
+					<th>Votos</th>
 					<!--<th>Votes</th>-->
 					<th> </th>
 				</tr>
@@ -118,12 +119,12 @@
 							<input type="hidden" name="name" value="{{name}}"/>
 							{{#if verified currentUser.emails}}
 								{{#unless ../cantVote}}
-									<input type="submit" class="btn btn-success" value="Vote"/>
+									<input type="submit" class="btn btn-success" value="Votar"/>
 								{{else}}
-									<input disabled type="submit" class="btn btn-default" value="Vote"/>
+									<input disabled type="submit" class="btn btn-default" value="Votar"/>
 								{{/unless}}
 							{{else}}
-								<input disabled type="submit" class="btn btn-default" value="Vote"/>
+								<input disabled type="submit" class="btn btn-default" value="Votar"/>
 							{{/if}}
 						</form>
 					{{/if}}
